@@ -1,0 +1,29 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	
+	compile 'com.datastax.cassandra:cassandra-driver-core:2.1.5'
+	
+	compile project(':com.mygrator.core')
+
+    testCompile "org.mockito:mockito-core:1.+"    
+    testCompile 'junit:junit:4.12'    
+}
+
+jar {
+    manifest {
+        attributes("Implementation-Title": project.name,
+            "Implementation-Version": version)
+    }
+}
+
+
