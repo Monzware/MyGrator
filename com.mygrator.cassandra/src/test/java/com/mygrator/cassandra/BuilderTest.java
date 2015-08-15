@@ -6,10 +6,12 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.datastax.driver.core.Session;
-import com.mygrator.MigrationResult;
-import com.mygrator.MissingMigratorException;
 import com.mygrator.MyGrator;
-import com.mygrator.ResourceProvider;
+import com.mygrator.cassandra.migrations.MigrationClass1;
+import com.mygrator.exception.MissingMigratorException;
+import com.mygrator.migrator.DefaultMigrationProvider;
+import com.mygrator.model.MigrationResult;
+import com.mygrator.provider.ResourceProvider;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BuilderTest implements ResourceProvider<Session> {
@@ -19,10 +21,14 @@ public class BuilderTest implements ResourceProvider<Session> {
 
 	@Test
 	public void createBuilder() throws MissingMigratorException {
+	
+		DefaultMigrationProvider<Session> migrationProvider = new DefaultMigrationProvider<Session>();
+		migrationProvider.addMigrator(new MigrationClass1());
+		migrationProvider.addMigratorResource("/com/mygrator/cassandra/migrations/migrationfile.cql");
 
 		MyGrator myGrator = MyGrator.builder().setResourceProvider(this)
-				.addMigrationPackage("com.mygrator.cassandra.migrations").setUser("UserName")
-				.setHistoryStoreName("databasemigration").build();
+				.addMigrationProvider(migrationProvider).setUser("UserName")
+				.setHistoryStoreName("migration").build();
 
 		myGrator.initialize();
 
@@ -37,9 +43,5 @@ public class BuilderTest implements ResourceProvider<Session> {
 		return session;
 	}
 
-	@Override
-	public Class<Session> getProviderClass() {
-		return Session.class;
-	}
 
 }

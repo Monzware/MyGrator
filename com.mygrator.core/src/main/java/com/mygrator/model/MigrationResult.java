@@ -1,4 +1,4 @@
-package com.mygrator;
+package com.mygrator.model;
 
 public interface MigrationResult {
 

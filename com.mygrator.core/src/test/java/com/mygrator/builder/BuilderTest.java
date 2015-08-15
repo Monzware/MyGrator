@@ -5,19 +5,18 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.mygrator.Migration;
-import com.mygrator.MigrationResult;
-import com.mygrator.MissingMigratorException;
 import com.mygrator.MyGrator;
-import com.mygrator.ResourceProvider;
+import com.mygrator.exception.MissingMigratorException;
+import com.mygrator.model.Migration;
+import com.mygrator.model.MigrationResult;
+import com.mygrator.provider.ResourceProvider;
 
 public class BuilderTest implements ResourceProvider<PrintStream> {
 
 	@Test
 	public void createBuilder() throws MissingMigratorException {
 
-		MyGrator myGrator = MyGrator.builder().setResourceProvider(this).addMigrationPackage("com.test.migration")
-				.setUser("Peer Bech Hansen").setHistoryStoreName("databasemigration").build();
+		MyGrator myGrator = MyGrator.builder().setResourceProvider(this).setUser("Peer Bech Hansen").setHistoryStoreName("databasemigration").build();
 
 		myGrator.initialize();
 
@@ -38,9 +37,5 @@ public class BuilderTest implements ResourceProvider<PrintStream> {
 		return System.out;
 	}
 
-	@Override
-	public Class<PrintStream> getProviderClass() {
-		return PrintStream.class;
-	}
 
 }

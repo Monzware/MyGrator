@@ -1,22 +1,13 @@
 package com.mygrator.cassandra;
 
 import com.datastax.driver.core.Session;
-import com.mygrator.MyGratorService;
+import com.mygrator.provider.ResourceProvider;
+import com.mygrator.service.MyGratorService;
 
-public class MyGratorCassandraService implements MyGratorService {
-
-	@Override
-	public boolean provides(Class<?> providerClass) {
-		return Session.class.equals(providerClass);
-	}
+public class MyGratorCassandraService implements MyGratorService<Session> {
 
 	@Override
-	public boolean supportsRollback() {
-		return false;
+	public boolean accept(ResourceProvider<?> resourceProvider) {
+		return resourceProvider.getResource().getClass().isAssignableFrom(Session.class);
 	}
-	
-	
-	
-	
-
 }
