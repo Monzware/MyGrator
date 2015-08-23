@@ -15,7 +15,6 @@ public class CassandraStreamScriptMigrator implements ClassMigrater<Session> {
 
 	public CassandraStreamScriptMigrator(String scriptName, InputStream scriptInputStream) {
 		this.scriptInputStream = scriptInputStream;
-		
 	}
 
 	@Override

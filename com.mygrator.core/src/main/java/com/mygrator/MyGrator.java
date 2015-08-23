@@ -1,11 +1,14 @@
 package com.mygrator;
 
 import java.io.Closeable;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
 
 import com.mygrator.builder.Builder;
 import com.mygrator.builder.BuilderImpl;
+import com.mygrator.exception.MigrationException;
+import com.mygrator.migrator.ClassMigrater;
 import com.mygrator.migrator.MigrationProvider;
 import com.mygrator.model.Migration;
 import com.mygrator.model.MigrationResult;
@@ -40,9 +43,20 @@ public class MyGrator<T> implements Closeable {
 	
 	public void initialize() {
 		
-		Object resource = resourceProvider.getResource();
+		T resource = resourceProvider.getResource();
 				
 		Collection<Migration> migrationHistory = service.getMigrationHistory();
+		
+		InputStream resourceAsStream = getClass().getResourceAsStream("/com/mygrator/cassandra/migrations/migrationfile.cql");
+		
+		ClassMigrater<T> migrater = service.createMigrationClassFromScript("migrationfile.cql", resourceAsStream);
+		try {
+			migrater.doMigration(resource);
+		} catch (MigrationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		
 		

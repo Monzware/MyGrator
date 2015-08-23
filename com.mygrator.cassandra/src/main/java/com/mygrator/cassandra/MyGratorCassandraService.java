@@ -14,7 +14,7 @@ public class MyGratorCassandraService implements MyGratorService<Session> {
 
 	@Override
 	public boolean accept(ResourceProvider<?> resourceProvider) {
-		return resourceProvider.getResource().getClass().isAssignableFrom(Session.class);
+		return resourceProvider.getResource() instanceof Session;
 	}
 
 	@Override
