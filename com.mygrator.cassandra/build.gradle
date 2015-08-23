@@ -11,12 +11,16 @@ repositories {
 
 dependencies {
 	
-	compile 'com.datastax.cassandra:cassandra-driver-core:2.1.5'
+	compile 'com.datastax.cassandra:cassandra-driver-core:2.1.7.1'
+	compile 'com.datastax.cassandra:cassandra-driver-mapping:2.1.7.1'
+	
 	
 	compile project(':com.mygrator.core')
 
     testCompile "org.mockito:mockito-core:1.+"    
-    testCompile 'junit:junit:4.12'    
+    testCompile 'junit:junit:4.12'   
+    
+    testCompile 'org.cassandraunit:cassandra-unit-spring:2.1.3.1' 
 }
 
 jar {

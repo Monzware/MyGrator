@@ -12,35 +12,39 @@ import com.mygrator.model.MigrationResult;
 import com.mygrator.provider.ResourceProvider;
 import com.mygrator.service.MyGratorService;
 
-public class MyGrator implements Closeable {
+public class MyGrator<T> implements Closeable {
 	
 	
-	private MyGratorService<?> service;
+	private MyGratorService<T> service;
 	private String userName;
 	private String historyName;
-	private ResourceProvider<?> resourceProvider;
-	private Collection<MigrationProvider<?>> migrationProviders;
+	private ResourceProvider<T> resourceProvider;
+	private MigrationProvider<T> migrationProvider;
 
-	public MyGrator(MyGratorService<?> myGratorService, String userName, String historyName,
-			ResourceProvider<?> resourceProvider, Collection<MigrationProvider<?>> migrationProviders) {
+	public MyGrator(MyGratorService<T> myGratorService, String userName, String historyName,
+			ResourceProvider<T> resourceProvider, MigrationProvider<T> migrationProvider) {
 				this.service = myGratorService;
 				this.userName = userName;
 				this.historyName = historyName;
 				this.resourceProvider = resourceProvider;
-				this.migrationProviders = migrationProviders;
+				this.migrationProvider = migrationProvider;
 	}
 
-	public static Builder builder() {
-        return new BuilderImpl();
+	public static <T> Builder<T> builder() {
+        return new BuilderImpl<T>();
     }
 
+	public static <T> Builder<T>  builder(Class<T> resourceClass) {
+		return new BuilderImpl<T>();
+	}
+	
 	public void initialize() {
 		
-		for (MigrationProvider<?> migrationProvider : migrationProviders) {
-			
-			
-			
-		}
+		Object resource = resourceProvider.getResource();
+				
+		Collection<Migration> migrationHistory = service.getMigrationHistory();
+		
+		
 		
 	}
 
@@ -67,5 +71,6 @@ public class MyGrator implements Closeable {
 	public void close() {
 		
 	}
+	
 
 }

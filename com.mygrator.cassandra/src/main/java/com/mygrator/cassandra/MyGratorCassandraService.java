@@ -1,6 +1,10 @@
 package com.mygrator.cassandra;
 
+import java.util.Collection;
+
 import com.datastax.driver.core.Session;
+import com.mygrator.migrator.ClassMigrater;
+import com.mygrator.model.Migration;
 import com.mygrator.provider.ResourceProvider;
 import com.mygrator.service.MyGratorService;
 
@@ -10,4 +14,24 @@ public class MyGratorCassandraService implements MyGratorService<Session> {
 	public boolean accept(ResourceProvider<?> resourceProvider) {
 		return resourceProvider.getResource().getClass().isAssignableFrom(Session.class);
 	}
+
+	@Override
+	public Collection<Migration> getMigrationHistory() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setMigrationStatus(Migration migration) {
+		
+	}
+
+	@Override
+	public ClassMigrater<Session> createMigrationClassFromScript(String scriptName, String script) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
 }

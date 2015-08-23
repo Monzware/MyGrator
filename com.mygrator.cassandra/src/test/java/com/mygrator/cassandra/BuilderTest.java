@@ -26,8 +26,10 @@ public class BuilderTest implements ResourceProvider<Session> {
 		migrationProvider.addMigrator(new MigrationClass1());
 		migrationProvider.addMigratorResource("/com/mygrator/cassandra/migrations/migrationfile.cql");
 
-		MyGrator myGrator = MyGrator.builder().setResourceProvider(this)
-				.addMigrationProvider(migrationProvider).setUser("UserName")
+		MyGrator<Session> myGrator = MyGrator.<Session>builder()
+				.setResourceProvider(this)
+				.addMigrationProvider(migrationProvider)
+				.setUser("UserName")
 				.setHistoryStoreName("migration").build();
 
 		myGrator.initialize();

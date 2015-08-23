@@ -5,16 +5,16 @@ import com.mygrator.exception.MissingMigratorException;
 import com.mygrator.migrator.MigrationProvider;
 import com.mygrator.provider.ResourceProvider;
 
-public interface Builder {
+public interface Builder<T> {
 
-	Builder setResourceProvider(ResourceProvider<?> resourceProvider);
+	Builder<T> setResourceProvider(ResourceProvider<T> resourceProvider);
 
-	Builder setHistoryStoreName(String historyName);
+	Builder<T> setHistoryStoreName(String historyName);
 
-	MyGrator build() throws MissingMigratorException;
+	MyGrator<T> build() throws MissingMigratorException;
 
-	Builder setUser(String userName);
+	Builder<T> setUser(String userName);
 
-	Builder addMigrationProvider(MigrationProvider<?> migrationProvider);
+	Builder<T> addMigrationProvider(MigrationProvider<T> migrationProvider);
 
 }

@@ -16,7 +16,11 @@ public class BuilderTest implements ResourceProvider<PrintStream> {
 	@Test
 	public void createBuilder() throws MissingMigratorException {
 
-		MyGrator myGrator = MyGrator.builder().setResourceProvider(this).setUser("Peer Bech Hansen").setHistoryStoreName("databasemigration").build();
+		MyGrator<PrintStream> myGrator = MyGrator.builder(PrintStream.class).
+				setResourceProvider(this).
+				setUser("Peer Bech Hansen").
+				setHistoryStoreName("databasemigration").
+				build();
 
 		myGrator.initialize();
 
