@@ -1,4 +1,4 @@
-package com.mygrator.cassandra.persistence;
+package com.mygrator.cassandra.migrator;
 
 import com.datastax.driver.core.Session;
 import com.mygrator.exception.MigrationException;

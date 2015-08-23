@@ -1,8 +1,10 @@
 package com.mygrator.cassandra;
 
+import java.io.InputStream;
 import java.util.Collection;
 
 import com.datastax.driver.core.Session;
+import com.mygrator.cassandra.migrator.CassandraStreamScriptMigrator;
 import com.mygrator.migrator.ClassMigrater;
 import com.mygrator.model.Migration;
 import com.mygrator.provider.ResourceProvider;
@@ -27,11 +29,7 @@ public class MyGratorCassandraService implements MyGratorService<Session> {
 	}
 
 	@Override
-	public ClassMigrater<Session> createMigrationClassFromScript(String scriptName, String script) {
-		// TODO Auto-generated method stub
-		return null;
+	public ClassMigrater<Session> createMigrationClassFromScript(String scriptName, InputStream script) {
+		return new CassandraStreamScriptMigrator(scriptName, script);
 	}
-	
-	
-	
 }

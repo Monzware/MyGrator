@@ -1,5 +1,6 @@
 package com.mygrator.service;
 
+import java.io.InputStream;
 import java.util.Collection;
 
 import com.mygrator.migrator.ClassMigrater;
@@ -14,6 +15,6 @@ public interface MyGratorService<T> {
 	
 	void setMigrationStatus(Migration migration);
 	
-	ClassMigrater<T> createMigrationClassFromScript(String scriptName, String script);
+	ClassMigrater<T> createMigrationClassFromScript(String scriptName, InputStream script);
 
 }

@@ -7,6 +7,7 @@ import com.datastax.driver.core.Session;
 import com.datastax.driver.core.TableMetadata;
 import com.datastax.driver.mapping.MappingManager;
 import com.datastax.driver.mapping.Result;
+import com.mygrator.cassandra.migrator.CassandraClassPathFileMigrator;
 import com.mygrator.exception.MigrationException;
 
 public class MigrationHistoryDao {
